@@ -1,9 +1,9 @@
 import gray from "@material-ui/core/colors/grey";
 import lightGreen from "@material-ui/core/colors/lightGreen";
 
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
             light: lightGreen[200],

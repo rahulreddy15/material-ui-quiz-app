@@ -40,6 +40,10 @@ const styles = theme => ({
     logo: {
         userSelect: "none",
         marginTop: "2px"
+    },
+    timer: {
+        userSelect: "none",
+        marginTop: "2px"
     }
 });
 

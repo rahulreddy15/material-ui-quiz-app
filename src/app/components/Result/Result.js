@@ -2,22 +2,16 @@ import React from "react";
 
 import Button from "@material-ui/core/Button";
 import { withStyles, MuiThemeProvider } from "@material-ui/core/styles";
-
+import { Navigate } from 'react-router-dom';
 import addCssTransition from "../../utils/css-transition";
 import questionStyle from "./result-style";
 import theme from "../../styles/theme";
 
-import successSvg from "../../../assets/success.svg";
-import failureSvg from "../../../assets/failure.svg";
-
 class Result extends React.Component {
-    getSuccessMessage = () => {
-        return `Passed!\n ${this.props.result.correctAnswers} / ${this.props.result.questionsLength} correct`;
-    };
 
-    getFailMessage = () => {
-        return `Fail!\n ${this.props.result.correctAnswers} / ${this.props.result.questionsLength} correct`;
-    };
+    redirectHome = () => {
+        return <Navigate to="/" />;
+    }
 
     render() {
         const { classes } = this.props;
@@ -25,14 +19,24 @@ class Result extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 {addCssTransition(
-                    <div className={classes.svgContainer}>
-                        <img
-                            src={this.props.result.pass ? successSvg : failureSvg}
-                            className={classes.resultSVG}
-                            alt="logo"
-                        />
+                    <div>
                         <pre className={classes.resultParagraph}>
-                            {this.props.result.pass ? this.getSuccessMessage() : this.getFailMessage()}
+                            Number Of Questions Asked: {this.props.result.n_questions}
+                        </pre>
+                        <pre className={classes.resultParagraph}>
+                            Number Of Questions Answered: {this.props.result.answered}
+                        </pre>
+                        <pre className={classes.resultParagraph}>
+                            Number Of Correct Answers: {this.props.result.correctAnswers}
+                        </pre>
+                        <pre className={classes.resultParagraph}>
+                            Number Of Incorrect Answers: {this.props.result.answered - this.props.result.correctAnswers}
+                        </pre>
+                        <pre className={classes.resultParagraph}>
+                            Percentage Correct: {this.props.result.correctAnswers / this.props.result.answered * 100}%
+                        </pre>
+                        <pre className={classes.resultParagraph}>
+                            Time Elapsed: {this.props.result.quizTime} seconds
                         </pre>
 
                         <Button
@@ -42,6 +46,14 @@ class Result extends React.Component {
                             color="secondary"
                         >
                             Try Again
+                        </Button>
+                        <Button
+                            variant="contained"
+                            className={classes.resetButton}
+                            onClick={this.redirectHome}
+                            color="secondary"
+                        >
+                            Go Home
                         </Button>
                     </div>
                 )}

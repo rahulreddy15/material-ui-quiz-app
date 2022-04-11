@@ -1,26 +1,31 @@
-import questionsData from "./data/questionsData";
-
-export default (questions, questionAnswers) => {
+export default (startDate, questionsData, questionAnswers) => {
     return new Promise(resolve => {
         setTimeout(() => {
+            const endDate = new Date();
+            const quizTime = (endDate.getTime() - startDate.getTime()) / 1000;
             let correctAnswers = 0;
+            const n_questions = questionsData.length;
+            const answered = questionAnswers.length
 
-            questions.forEach((question, index) => {
-                const validAnswer = questionsData[question.questionIndex].correctAnswerIndex;
-                const userAnswer = questionAnswers[index];
+            for (let i = 0; i < questionsData.length; i++) {
+                const correct = questionsData[i].correctAnswerIndex;
+                const given = questionAnswers[i]+1;
+                console.log(correct, given)
 
-                if (validAnswer === userAnswer) {
+                if (correct == given) {
                     correctAnswers++;
                 }
-            });
+            }
 
             const requiredCorrectPercentage = 70;
-            const questionsLength = questions.length;
+            const questionsLength = questionsData.length;
             const pass = correctAnswers >= questionsLength * (requiredCorrectPercentage / 100);
             const result = {
-                questionsLength,
+                answered,
+                n_questions,
                 correctAnswers,
-                pass
+                pass,
+                quizTime
             };
 
             resolve(result);

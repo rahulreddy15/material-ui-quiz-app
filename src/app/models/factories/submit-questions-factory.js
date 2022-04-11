@@ -1,11 +1,11 @@
 import LocalSubmit from "../services/questions/local/submit-questions";
 
-const getSubmit = (server = null, questionData, questionAnswers) => {
+const getSubmit = (server = null, startDate, questionsData, questionAnswers) => {
     if (server) {
         // TODO:
         // implement
     } else {
-        return LocalSubmit(questionData, questionAnswers);
+        return LocalSubmit(startDate, questionsData, questionAnswers);
     }
 };
 
